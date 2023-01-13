@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ComplexTypes\**" />
+    <Compile Remove="Models\**" />
+    <EmbeddedResource Remove="ComplexTypes\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="ComplexTypes\**" />
+    <None Remove="Models\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rosi.BMS.API.Core\Rosi.BMS.API.Core.csproj" />
+  </ItemGroup>
+
+</Project>
