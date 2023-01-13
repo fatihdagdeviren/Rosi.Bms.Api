@@ -10,7 +10,7 @@ namespace Rosi.BMS.API.Core.DataAccess
     {
         Task<T> Get(Expression<Func<T, bool>> filter);
 
-        IList<T> GetList(Expression<Func<T, bool>> filter = null);
+        Task<IList<T>> GetList(Expression<Func<T, bool>> filter = null);
 
         Task<T> Add(T entity);
 

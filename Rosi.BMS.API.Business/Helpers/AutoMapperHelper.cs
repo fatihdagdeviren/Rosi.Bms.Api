@@ -10,6 +10,8 @@ namespace Rosi.BMS.API.Business.Helpers
         {
             CreateMap<CreateZoneDto, Zone>();
             CreateMap<UpdateZoneDto, Zone>();
+            CreateMap<ZoneDto, Zone>();
+            CreateMap<Zone, ZoneDto>();
         }
     }
 }

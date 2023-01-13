@@ -7,54 +7,97 @@ using System;
 using Rosi.BMS.API.DataAccess.Concrete.EntityFramework.Context;
 using System.Linq;
 using Rosi.BMS.API.Core.Entities;
+using Rosi.BMS.API.Business.Abstract;
+using Rosi.BMS.API.Business.Constants;
+using Rosi.BMS.API.Core.Utilities.Results;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Rosi.BMS.API.Controllers
 {
     [ApiController]
-    public class BaseController<TEntity> : ControllerBase where TEntity : BaseEntity
+    public abstract class BaseController<TService, T, C, U> : ControllerBase
+        where T : IDto
+        where C : IDto
+        where U : IDto
+        where TService : IBaseService<T, C, U>                                       
+
     {
-        protected readonly RosiBMSApiDbContext _context;
-        protected DbSet<TEntity> _dbSet { get; set; }
-        public BaseController(RosiBMSApiDbContext context)
+        public TService _service; 
+        public BaseController(TService service)
         {
-            _context = context;
-            _dbSet = _context.Set<TEntity>();
+            _service = service;
         }
 
-        [HttpGet]
-        public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
+        [HttpPost("Add")]
+        [Authorize(Roles = "User")]
+        public async Task<ActionResult<ApiResult<T>>> Add(C model)
         {
-            return await _dbSet.ToListAsync();
+            var addResult = await _service.Add(model);
+            return Ok(new ApiResult<object>
+            {
+                Success = true,
+                Data = addResult,
+                Message = Messages.Success,
+                InternalMessage = Messages.Success
+            });
         }
 
-        [HttpGet("{id}")]
-        public virtual async Task<TEntity> GetAsync(int id)
+        [HttpDelete("Delete")]
+        [Authorize(Roles = "User")]
+        public async Task<ActionResult<ApiResult<bool>>> Delete([FromQuery] int id)
         {
-            return await _dbSet.Where(e => e.Id == id).FirstOrDefaultAsync();
+            bool deleteResult = await _service.Delete(id);
+            return Ok(new ApiResult<object>
+            {
+                Success = true,
+                Data = deleteResult,
+                Message = Messages.Success,
+                InternalMessage = Messages.Success
+            });
         }
 
-        [HttpDelete("{id}")]
-        public virtual async Task DeleteAsync(int id)
+        [HttpPut("Update")]
+        [Authorize(Roles = "User")]
+        public async Task<ActionResult<ApiResult<bool>>> Update([FromBody] U model)
         {
-            var entity = await _dbSet.Where(e => e.Id == id).FirstOrDefaultAsync();
-            _dbSet.Remove(entity);
-            await _context.SaveChangesAsync();
+            await _service.Update(model);
+            return Ok(new ApiResult<object>
+            {
+                Success = true,
+                Data = true,
+                Message = Messages.Success,
+                InternalMessage = Messages.Success
+            });
         }
 
-        [HttpPost]
-        public virtual async Task<TEntity> CreateAsync(TEntity entity)
+        [HttpGet("GetAll")]
+        [Authorize(Roles = "User")]
+        public async Task<ActionResult<ApiResult<T>>> GetAll()
         {
-            await _dbSet.AddAsync(entity);
-            await _context.SaveChangesAsync();
-            return entity;
+            var listResult = await _service.GetAll();
+            return Ok(new ApiResult<object>
+            {
+                Success = true,
+                Data = listResult,
+                Message = Messages.Success,
+                InternalMessage = Messages.Success
+            });
         }
 
-        [HttpPost]
-        public virtual async Task<TEntity> UpdateAsync(TEntity entity)
+        [HttpGet("GetById")]
+        [Authorize(Roles = "User")]
+        public async Task<ActionResult<ApiResult<T>>> GetById([FromQuery] int id)
         {
-            _dbSet.Update(entity);
-            await _context.SaveChangesAsync();
-            return entity;
+            var obj = await _service.GetById(id);
+            return Ok(new ApiResult<object>
+            {
+                Success = true,
+                Data = obj,
+                Message = Messages.Success,
+                InternalMessage = Messages.Success
+            });
         }
+
     }
 }

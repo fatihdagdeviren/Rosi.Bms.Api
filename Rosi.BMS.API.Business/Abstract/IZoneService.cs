@@ -9,10 +9,13 @@ using System.Threading.Tasks;
 
 namespace Rosi.BMS.API.Business.Abstract
 {
-    public interface IZoneService
+    public interface IZoneService : IBaseService<ZoneDto, CreateZoneDto, UpdateZoneDto>
     {
-        Task<Zone> Add(CreateZoneDto zone);
-        Task<bool> Delete(int id);
-        Task Update(UpdateZoneDto zone);
+        //Task<Zone> Add(CreateZoneDto zone);
+        //Task<bool> Delete(int id);
+        //Task Update(UpdateZoneDto zone);
+        //Task<List<ZoneDto>> GetAll();
+        //Task<ZoneDto> GetById(int id);
+        Task<bool> TestMethod();
     }
 }

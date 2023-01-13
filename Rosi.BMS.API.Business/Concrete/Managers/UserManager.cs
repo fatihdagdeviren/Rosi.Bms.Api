@@ -21,7 +21,8 @@ namespace Rosi.BMS.API.Business.Concrete.Managers
 
         public void Add(User user)
         {
-            _userDal.Add(user);
+            var addedUser = _userDal.Add(user).Result;
+            var result = _userDal.SetUserOperationClaimDefault(addedUser).Result;
         }
 
         public User GetByMail(string email)
