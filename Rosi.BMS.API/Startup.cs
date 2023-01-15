@@ -51,15 +51,15 @@ namespace Rosi.BMS.API
             services.AddControllers();
             // AddDependencyResolvers islemi
             // EFZone
-            services.AddSingleton<IUserService, UserManager>();
-            services.AddSingleton<IUserDal, EfUserDal>();
+            services.AddTransient<IUserService, UserManager>();
+            services.AddTransient<IUserDal, EfUserDal>();
             services.AddSingleton<IZoneDal, EfZoneDal>();
             // EFZone
             // Services
-            services.AddSingleton<IAuthService, AuthManager>();
-            services.AddSingleton<ITokenHelper, JwtHelper>();
-            services.AddSingleton<IUserTokenService, UserTokenManager>();
-            services.AddSingleton<IUserTokenDal, EfUserTokenDal>();
+            services.AddTransient<IAuthService, AuthManager>();
+            services.AddTransient<ITokenHelper, JwtHelper>();
+            services.AddTransient<IUserTokenService, UserTokenManager>();
+            services.AddTransient<IUserTokenDal, EfUserTokenDal>();
             services.AddSingleton<IMailService, MailManager>();
             services.AddSingleton<IZoneService, ZoneManager>();
             services.AddTransient<IFileLogService, FileLogManager>();
