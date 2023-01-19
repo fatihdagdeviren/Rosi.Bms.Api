@@ -13,7 +13,6 @@ namespace Rosi.BMS.API.Core.Entities.Concrete
         public virtual User  User{ get; set; }
         public string Token { get; set; }  // Token Değeri
         public DateTime Expiration { get; set; } // Token geçerlilik süresi
-        public DateTime CreatedDate { get; set; }
 
     }
 }

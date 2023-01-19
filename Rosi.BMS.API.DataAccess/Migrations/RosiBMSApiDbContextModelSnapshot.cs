@@ -23,8 +23,14 @@ namespace Rosi.BMS.API.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime");
+
                     b.Property<string>("Name")
                         .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime");
 
                     b.HasKey("Id");
 
@@ -58,6 +64,9 @@ namespace Rosi.BMS.API.DataAccess.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");
@@ -69,8 +78,14 @@ namespace Rosi.BMS.API.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime");
+
                     b.Property<int>("OperationClaimId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -94,6 +109,9 @@ namespace Rosi.BMS.API.DataAccess.Migrations
 
                     b.Property<string>("Token")
                         .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");

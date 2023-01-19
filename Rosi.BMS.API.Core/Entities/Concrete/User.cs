@@ -11,7 +11,6 @@ namespace Rosi.BMS.API.Core.Entities.Concrete
         public string Email { get; set; }
         public byte[] PasswordSalt { get; set; }
         public byte[] PasswordHash { get; set; }
-        public bool Status { get; set; }
-        public DateTime CreatedDate { get; set; }        
+        public bool Status { get; set; }       
     }
 }

@@ -21,9 +21,7 @@ namespace Rosi.BMS.API.Business.Concrete.Managers
         }
         public async Task<ZoneDto> Add(CreateZoneDto model)
         {
-            var entity =  _mapper.Map<Zone>(model);
-            entity.CreatedDate = DateTime.Now;
-            entity.UpdatedDate = DateTime.Now;
+            var entity =  _mapper.Map<Zone>(model);       
             entity.IsActive = true;
             return _mapper.Map<ZoneDto>(await _zoneDal.Add(entity));            
         }
@@ -52,9 +50,7 @@ namespace Rosi.BMS.API.Business.Concrete.Managers
         public async Task Update(UpdateZoneDto model)
         {
             var zone = _mapper.Map<Zone>(model);
-            var oldObject = await _zoneDal.Get(x => x.Id == model.Id);
-            zone.UpdatedDate = DateTime.Now;
-            zone.CreatedDate = oldObject.CreatedDate;
+            var oldObject = await _zoneDal.Get(x => x.Id == model.Id);           
             await _zoneDal.Update(zone);
         }
 

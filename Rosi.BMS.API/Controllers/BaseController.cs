@@ -30,7 +30,7 @@ namespace Rosi.BMS.API.Controllers
         }
 
         [HttpPost("Add")]
-        [Authorize(Roles = "User")]
+        //[Authorize(Roles = "User")]
         public async Task<ActionResult<ApiResult<T>>> Add(C model)
         {
             var addResult = await _service.Add(model);
@@ -44,7 +44,7 @@ namespace Rosi.BMS.API.Controllers
         }
 
         [HttpDelete("Delete")]
-        [Authorize(Roles = "User")]
+        //[Authorize(Roles = "User")]
         public async Task<ActionResult<ApiResult<bool>>> Delete([FromQuery] int id)
         {
             bool deleteResult = await _service.Delete(id);
@@ -58,7 +58,7 @@ namespace Rosi.BMS.API.Controllers
         }
 
         [HttpPut("Update")]
-        [Authorize(Roles = "User")]
+        //[Authorize(Roles = "User")]
         public async Task<ActionResult<ApiResult<bool>>> Update([FromBody] U model)
         {
             await _service.Update(model);
@@ -86,7 +86,7 @@ namespace Rosi.BMS.API.Controllers
         }
 
         [HttpGet("GetById")]
-        [Authorize(Roles = "User")]
+        //[Authorize(Roles = "User")]
         public async Task<ActionResult<ApiResult<T>>> GetById([FromQuery] int id)
         {
             var obj = await _service.GetById(id);

@@ -12,6 +12,8 @@ namespace Rosi.BMS.API.Core.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public virtual int Id { get; set; } 
+        public virtual int Id { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime? UpdatedDate { get; set; }
     }
 }

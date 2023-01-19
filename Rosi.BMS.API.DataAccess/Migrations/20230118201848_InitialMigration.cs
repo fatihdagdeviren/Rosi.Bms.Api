@@ -14,7 +14,9 @@ namespace Rosi.BMS.API.DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "text", nullable: true)
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -28,7 +30,9 @@ namespace Rosi.BMS.API.DataAccess.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    OperationClaimId = table.Column<int>(type: "int", nullable: false)
+                    OperationClaimId = table.Column<int>(type: "int", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -47,7 +51,8 @@ namespace Rosi.BMS.API.DataAccess.Migrations
                     PasswordSalt = table.Column<byte[]>(type: "varbinary(4000)", nullable: true),
                     PasswordHash = table.Column<byte[]>(type: "varbinary(4000)", nullable: true),
                     Status = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: false)
+                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -61,9 +66,9 @@ namespace Rosi.BMS.API.DataAccess.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "text", nullable: true),
+                    IsActive = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime", nullable: true),
-                    IsActive = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                    UpdatedDate = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -79,7 +84,8 @@ namespace Rosi.BMS.API.DataAccess.Migrations
                     UserId = table.Column<int>(type: "int", nullable: false),
                     Token = table.Column<string>(type: "text", nullable: true),
                     Expiration = table.Column<DateTime>(type: "datetime", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: false)
+                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {

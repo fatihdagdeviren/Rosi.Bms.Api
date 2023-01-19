@@ -6,6 +6,8 @@ using System.Linq.Expressions;
 using Rosi.BMS.API.Core.Entities;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Threading.Tasks;
+using System.Reflection;
+using Rosi.BMS.API.Core.Entities.Concrete;
 
 namespace Rosi.BMS.API.Core.DataAccess.EntityFramework
 {
@@ -13,11 +15,29 @@ namespace Rosi.BMS.API.Core.DataAccess.EntityFramework
     where TEntity : class, IEntity, new()
     where TContext : DbContext, new()
     {
+        private bool TrySetProperty(object obj, string property, object value)
+        {
+            var asd = obj.GetType().GetProperties(BindingFlags.FlattenHierarchy | BindingFlags.Static | BindingFlags.Public | BindingFlags.Instance );
+            var asd2 = obj.GetType().GetMembers();
+            var prop = obj.GetType().GetProperty(property);
+            
+            Type type = obj.GetType();
+            PropertyInfo prop22 = type.GetProperty("Rosi.BMS.API.Entities.Concrete.Zone.Name");
+
+            if (prop != null && prop.CanWrite)
+            {
+                prop.SetValue(obj, value, null);
+                return true;
+            }
+            return false;
+        }
+
         public async Task<TEntity> Add(TEntity entity)
         {
             using (var context = new TContext())
             {
                 var addedEntity = context.Entry(entity);
+                addedEntity.Property("CreatedDate").CurrentValue = DateTime.Now;                           
                 addedEntity.State = EntityState.Added;                
                 await context.SaveChangesAsync();
                 return entity;
@@ -59,7 +79,8 @@ namespace Rosi.BMS.API.Core.DataAccess.EntityFramework
         {
             using (var context = new TContext())
             {               
-                var updatedEntity = context.Entry(entity);                
+                var updatedEntity = context.Entry(entity);
+                updatedEntity.Property("UpdatedDate").CurrentValue = DateTime.Now;
                 updatedEntity.State = EntityState.Modified;
                 await context.SaveChangesAsync();              
             }
